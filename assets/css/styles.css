@@ -33,6 +33,10 @@ footer {
     text-decoration: none;
 }
 
+.btn-sair:hover {
+    color: #fff;
+    background-color: #c82333;
+}
 .btn-sair:focus, .btn-sair:active {
     outline: none;
     box-shadow: none;

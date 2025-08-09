@@ -9,7 +9,8 @@ include '../config/conexao.php'; // Inclui a conexão com o banco de dados
 
 // // Ações recentes (exemplo simples)
 // $atividadesRecentes = mysqli_query($conn, "SELECT descricao, created_at FROM atividades ORDER BY created_at DESC LIMIT 10");
-include '../includes/header.php'; 
+include '../includes/navbar-admin.php'; // Inclui a barra de navegação
+include '../includes/header.php'; // Inclui o cabeçalho HTML
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
