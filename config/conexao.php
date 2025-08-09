@@ -2,7 +2,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "root";
-    $database = "clientes_db";
+    $database = "sistema_votacao";
     
     $conn = mysqli_connect($servername, $username, $password, $database);
 
