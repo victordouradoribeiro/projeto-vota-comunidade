@@ -1,0 +1,25 @@
+body, html { 
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+nav { 
+    height: 100px;
+    padding-top: 15px;
+    background-color: #07024d;
+}
+
+nav > h1 { 
+    margin: 15px;
+    color: #FFF;
+    font-size: 1.5em; 
+}
+
+footer { 
+    background-color: #535353;
+    color: #fff;
+    position: relative;
+    padding: 20px 0;
+    text-align: center;
+}
