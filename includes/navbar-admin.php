@@ -47,7 +47,7 @@
                 </li>
                 <li class="nav-item">
                     <form method="POST" action="/public/logout.php" class="d-inline">
-                        <button class="btn btn-sair btn-light ms-3" type="submit">Sair</button>
+                        <button class="btn btn-sair btn-light ms-3 me-3" type="submit">Sair</button>
                     </form>
                 </li>
             </ul>
