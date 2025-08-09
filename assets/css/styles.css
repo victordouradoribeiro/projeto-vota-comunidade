@@ -23,3 +23,21 @@ footer {
     padding: 20px 0;
     text-align: center;
 }
+
+.btn-sair {
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-sair:focus, .btn-sair:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-sair:hover {
+    background-color: #c82333;
+}
