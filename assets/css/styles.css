@@ -140,11 +140,18 @@ nav > h1 {
     border-color: #0a58ca;
 }
 
-.btn-secundary { 
+.btn-secondary {
+    background-color: #6c757d; /* Cor padrão do Bootstrap para btn-secondary */
+    border-color: #6c757d;
     font-weight: 500;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.5rem; /* Igual ao btn-primary */
     border-radius: 8px;
     transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
 }
 
 .input-group-text {
