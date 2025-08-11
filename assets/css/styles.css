@@ -180,3 +180,14 @@ footer {
   padding: 20px 0;
   text-align: center;
 }
+
+.pagination .page-link {
+    background-color: #fff !important;
+    color: #4338CA;
+    border: 1px solid #ddd;
+}
+.pagination .page-item.active .page-link {
+    background-color: #4338CA !important;
+    color: #fff !important;
+    border: 1px solid #4338CA;
+}

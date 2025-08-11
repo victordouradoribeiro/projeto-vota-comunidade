@@ -3,13 +3,14 @@ include 'auth.php';
 include '../config/conexao.php';
 $currentPage = 'condominios';
 include '../includes/navbar-admin.php';
-include '../includes/header.php';
 
 // Parâmetros de pesquisa e paginação
 $pesquisa = isset($_GET['pesquisa']) ? trim($_GET['pesquisa']) : '';
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $limit = 5;
 $offset = ($page - 1) * $limit;
+
+include '../includes/header.php';
 ?>
 
 <div class="container mt-4">

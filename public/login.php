@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $user = mysqli_fetch_assoc($result);
 
         // Verifica a senha fornecida com o hash armazenado
-        if (md5($senha, $user['senha'])) {
+        if (md5($senha) === $user['senha']) {
             // Login bem-sucedido, cria as variáveis de sessão
             $_SESSION['id_usuario'] = $user['codigo'];
             $_SESSION['perfil'] = $user['perfil'];
