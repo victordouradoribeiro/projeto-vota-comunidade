@@ -1,4 +1,6 @@
 body, html { 
+    display: table;
+    width: 100%; 
     margin: 0;
     padding: 0;
     height: 100%;
@@ -14,14 +16,6 @@ nav > h1 {
     margin: 15px;
     color: #FFF;
     font-size: 1.5em; 
-}
-
-footer { 
-    background-color: #535353;
-    color: #fff;
-    position: relative;
-    padding: 20px 0;
-    text-align: center;
 }
 
 .btn-sair {
@@ -153,8 +147,7 @@ footer {
 }
 
 .form-control {
-    border-left: 0;
-    border-radius: 0 .25rem .25rem 0;
+    border-radius: .25rem;
 }
 
 .table thead th {
@@ -164,4 +157,26 @@ footer {
 
 .badge.bg-warning.text-dark {
     color: #212529 !important;
+}
+
+body {
+  position: relative;
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: 50px;
+  /* Set same as footer's height */
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #535353;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
 }

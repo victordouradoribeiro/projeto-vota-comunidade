@@ -50,6 +50,147 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 include '../includes/header.php';
 ?>
+<style>
+    body {
+    /* Cor de fundo roxa escura: #4338CA */
+    background-color: #4338CA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Garante que o corpo ocupe 100% da altura da viewport */
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* Fonte Inter */
+}
+
+.login-container {
+    background-color: #fff; /* Fundo branco para o formulário de login */
+    padding: 40px;
+    border-radius: 12px; /* Cantos arredondados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra */
+    width: 100%;
+    max-width: 450px; /* Largura máxima para o container */
+    text-align: center;
+}
+
+h2 {
+    color: #333; /* Cor do título */
+    margin-bottom: 30px;
+    font-weight: 600; /* Negrito para o título */
+}
+
+.form-label {
+    color: #555; /* Cor para os rótulos dos campos */
+    text-align: left;
+    display: block; /* Garante que o rótulo ocupe sua própria linha */
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    border-radius: 8px; /* Cantos arredondados para os inputs */
+    padding: 12px 15px;
+    border: 1px solid #ddd; /* Borda sutil */
+    box-shadow: none; /* Remove a sombra padrão */
+}
+
+.form-control:focus {
+    border-color: #4338CA; /* Cor da borda ao focar */
+    box-shadow: none; /* Remove o contorno/sombra ao focar */
+}
+
+.btn-primary {
+    background-color: #4338CA; /* Roxo principal para o botão */
+    border-color: #4338CA;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 500;
+    font-size: 16px;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #3c31b5; /* Tom um pouco mais escuro no hover */
+    border-color: #3c31b5;
+}
+
+.btn-primary:focus {
+    background-color: #3c31b5;
+    border-color: #3c31b5;
+    box-shadow: 0 0 0 0.2rem rgba(67, 56, 202, 0.25); /* Sombra de foco com a cor roxa */
+}
+
+.form-check-label {
+    color: #666; /* Cor para o texto do checkbox */
+    font-size: 14px;
+}
+
+.form-check-input:checked {
+    background-color: #4338CA; /* Cor de fundo quando marcado */
+    border-color: #4338CA; /* Cor da borda quando marcado */
+}
+
+.form-check-input:focus {
+    border-color: #4338CA;
+    box-shadow: 0 0 0 0.2rem rgba(67, 56, 202, 0.25);
+}
+
+.forgot-password {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.forgot-password a {
+    color: #4338CA; /* Cor roxa para o link */
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.register-link {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.register-link a {
+    color: #4338CA; /* Cor roxa para o link de registro */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Estilização para as credenciais de teste */
+.text-muted {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.text-muted small {
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .login-container {
+        margin: 20px;
+        padding: 30px 25px;
+    }
+    
+    h2 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+}
+</style>
 
 <div class="login-container container py-5" style="max-width: 400px;">
     <h2 class="mb-4 text-center">Faça seu login</h2>
