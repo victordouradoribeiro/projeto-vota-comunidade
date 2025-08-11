@@ -68,8 +68,8 @@ include '../includes/header.php';
     $totalRows = mysqli_fetch_row(mysqli_query($conn, $sqlCount))[0];
     $totalPages = ceil($totalRows / $limit);
     ?>
-    <nav>
-        <ul class="pagination justify-content-center mt-4">
+    <nav aria-label="Paginação" class="bg-white">
+        <ul class="pagination pagination-sm justify-content-center mt-4">
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
                     <a class="page-link" href="?pesquisa=<?= urlencode($pesquisa) ?>&page=<?= $i ?>"><?= $i ?></a>

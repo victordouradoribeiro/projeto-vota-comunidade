@@ -140,6 +140,13 @@ nav > h1 {
     border-color: #0a58ca;
 }
 
+.btn-secundary { 
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
 .input-group-text {
     background-color: #e9ecef;
     border-right: 0;
@@ -179,15 +186,4 @@ footer {
   color: #fff;
   padding: 20px 0;
   text-align: center;
-}
-
-.pagination .page-link {
-    background-color: #fff !important;
-    color: #4338CA;
-    border: 1px solid #ddd;
-}
-.pagination .page-item.active .page-link {
-    background-color: #4338CA !important;
-    color: #fff !important;
-    border: 1px solid #4338CA;
 }
