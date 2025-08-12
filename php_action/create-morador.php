@@ -33,6 +33,8 @@ VALUES
 
 if (mysqli_query($conn, $sql)) {
     $_SESSION['sucesso'] = "Morador criado com sucesso!";
+    header("Location: ../admin/gerenciar-sindicos.php");
+    exit;
 } else {
     $_SESSION['erro'] = "Erro ao criar morador: " . mysqli_error($conn);
     $erro = $_SESSION['erro'];

@@ -25,8 +25,8 @@ if ($user['perfil'] == 1) {
     exit;
 }
 
-// Deletar síndico
 $sql = "DELETE FROM usuarios WHERE codigo = $id";
+
 if (mysqli_query($conn, $sql)) {
     $_SESSION['sucesso'] = "Síndico apagado com sucesso!";
 } else {
