@@ -1,35 +1,38 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
-include '../config/conexao.php';
-
-$nomeEsc = mysqli_real_escape_string($conn, $nome);
-$emailEsc = mysqli_real_escape_string($conn, $email);
-$telefoneEsc = mysqli_real_escape_string($conn, $telefone);
-$cpfEsc = mysqli_real_escape_string($conn, $cpf);
-$id_condominioEsc = intval($id_condominio);
-$estadoEsc = mysqli_real_escape_string($conn, $estado);
-$cidadeEsc = mysqli_real_escape_string($conn, $cidade);
-$blocoEsc = mysqli_real_escape_string($conn, $bloco);
-$casaEsc = mysqli_real_escape_string($conn, $casa);
-
-$sql = "
-    UPDATE usuarios SET 
-        nome = '$nomeEsc',
-        email = '$emailEsc',
-        telefone = '$telefoneEsc',
-        cpf = '$cpfEsc',
-        id_condominio = $id_condominioEsc,
-        estado = '$estadoEsc',
-        cidade = '$cidadeEsc',
-        bloco = '$blocoEsc',
-        casa = '$casaEsc'
-    WHERE codigo = $id AND perfil = 3
-";
-
-if (mysqli_query($conn, $sql)) {
-    $_SESSION['sucesso'] = "Morador atualizado com sucesso!";
-} else {
-    $_SESSION['erro'] = "Erro ao atualizar morador: " . mysqli_error($conn);
-    $erro = $_SESSION['erro'];
+if (!isset($conn)) {
+    include '../config/conexao.php';
 }
+
+$stmt = $conn->prepare("
+    UPDATE usuarios 
+    SET nome=?, email=?, telefone=?, cpf=?, estado=?, cidade=?, bloco=?, casa=?, id_condominio=?, perfil=?, status=?
+    WHERE codigo=?
+");
+
+$stmt->bind_param(
+    "ssssssssissi",
+    $nome,
+    $email,
+    $telefone,
+    $cpf,
+    $estado,
+    $cidade,
+    $bloco,
+    $casa,
+    $id_condominio,
+    $perfil,
+    $status,
+    $id
+);
+
+if ($stmt->execute()) {
+    $_SESSION['sucesso'] = "Dados do morador atualizados com sucesso!";
+    header("Location: ../admin/gerenciar-moradores.php");
+    exit;
+} else {
+    $_SESSION['erro'] = "Erro ao atualizar morador: " . $stmt->error;
+    header("Location: ../admin/editar-morador.php?id=" . $id);
+    exit;
+}
+$stmt->close();
 ?>
