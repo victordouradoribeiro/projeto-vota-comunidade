@@ -243,7 +243,7 @@ h2 {
         </div>
         
         <div class="register-link mt-2">
-            Não tem uma conta? <a href="#">Registre-se agora!</a>
+            Não tem uma conta? <a href="register.php">Registre-se agora!</a>
         </div>
     </form>
 
