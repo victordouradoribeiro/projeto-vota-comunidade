@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .form-control { border-radius: 8px; padding: 15px; border: 1px solid #ddd; box-shadow: none; width: 100%; }
         .form-control:focus { border-color: #4338CA; box-shadow: 0 0 0 0.2rem rgba(67, 56, 202, 0.25); outline: none; }
         select.form-control { appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e"); background-position: right 12px center; background-repeat: no-repeat; background-size: 16px 12px; padding-right: 40px; }
-        .btn-primary { background-color: #4338CA; border-color: #4338CA; border-radius: 8px; padding: 12px 24px; font-weight: 500; font-size: 16px; width: 100%; transition: all 0.3s ease; }
+        .btn-primary { background-color: #4338CA; border-color: #4338CA; border-radius: 8px; padding: 12px 24px; font-weight: 500; font-size: 16px; width: 100%; transition: all 0.3s ease; color:white;}
         .btn-primary:hover { background-color: #3c31b5; border-color: #3c31b5; transform: translateY(-1px); }
         .btn-primary:focus { background-color: #3c31b5; border-color: #3c31b5; box-shadow: 0 0 0 0.2rem rgba(67, 56, 202, 0.25); }
         .btn-primary:active { transform: translateY(0); }

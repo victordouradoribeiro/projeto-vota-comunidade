@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 100%;
             transition: all 0.3s ease;
             margin-bottom: 15px;
+            color: white;
         }
         .btn-primary:hover {
             background-color: #3c31b5;

@@ -23,6 +23,9 @@ $offset = ($page - 1) * $limit;
             <span class="input-group-text"><i class="fas fa-search"></i></span>
             <input type="text" class="form-control" name="pesquisa" placeholder="Pesquisar síndicos" value="<?= htmlspecialchars($pesquisa) ?>">
             <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
+            <?php if (!empty($pesquisa)): ?>
+                <a href="gerenciar-sindicos.php" class="btn btn-outline-danger">Limpar</a>
+            <?php endif; ?>
         </div>
     </form>
 
@@ -39,8 +42,7 @@ $offset = ($page - 1) * $limit;
                         </tr>
                     </thead>
                     <?php
-                        // Inclui a tabela dinâmica dos síndicos
-                        include '../php_action/read_sindicos.php';
+                        include '../php_action/read-sindicos.php';
                     ?>
                 </table>
             </div>
@@ -57,7 +59,7 @@ $offset = ($page - 1) * $limit;
     $totalRows = mysqli_fetch_row(mysqli_query($conn, $sqlCount))[0];
     $totalPages = ceil($totalRows / $limit);
     ?>
-    <nav>
+    <nav aria-label="Paginação" class="bg-white">
         <ul class="pagination justify-content-center mt-4">
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
