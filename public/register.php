@@ -94,6 +94,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .alert-danger { background-color: #fee2e2; border-color: #fecaca; color: #991b1b; }
         .form-group { margin-bottom: 20px; margin-right: 32px; }
         .form-control { margin-bottom: 0.5rem; }
+        body {
+            position: relative;
+        }
+        body::after {
+            content: '';
+            display: block;
+            height: 10px;
+            /* Set same as footer's height */
+        }
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 10px;
+            color: #fff;
+            text-align: center;
+        }
         @media (max-width: 768px) {
             body { padding: 10px; }
             .cadastro-container { margin: 10px; padding: 30px 25px; max-width: 100%; }
@@ -186,3 +203,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </body>
 </html>
+<?php include '../includes/footer.php'; ?>

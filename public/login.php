@@ -239,7 +239,7 @@ h2 {
         </div>
         
         <div class="forgot-password mt-3">
-            <a href="#">Esqueceu sua senha?</a>
+            <a href="forgot-password.php">Esqueceu sua senha?</a>
         </div>
         
         <div class="register-link mt-2">
