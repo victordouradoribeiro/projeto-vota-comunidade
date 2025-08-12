@@ -1,14 +1,14 @@
 <?php
 include 'auth.php';
 include '../config/conexao.php';
-$currentPage = 'sindicos';
+$currentPage = 'moradores';
 include '../includes/navbar-admin.php';
 include '../includes/header.php';
 
 $erro = '';
 $sucesso = '';
 
-// Mensagem vinda do redirecionamento
+// Mensagem de sucesso vinda de redirecionamento
 if (isset($_SESSION['sucesso'])) {
     $sucesso = $_SESSION['sucesso'];
     unset($_SESSION['sucesso']);
@@ -21,16 +21,16 @@ if ($id <= 0) {
     exit;
 }
 
-// Busca dados do síndico
+// Busca dados do morador
 $stmt = $conn->prepare("SELECT * FROM usuarios WHERE codigo = ? LIMIT 1");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
-$sindico = $result->fetch_assoc();
+$morador = $result->fetch_assoc();
 $stmt->close();
 
-if (!$sindico) {
-    echo "<div class='container mt-4'><div class='alert alert-danger'>Síndico não encontrado.</div></div>";
+if (!$morador) {
+    echo "<div class='container mt-4'><div class='alert alert-danger'>Morador não encontrado.</div></div>";
     include '../includes/footer.php';
     exit;
 }
@@ -74,14 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erro = "E-mail inválido.";
     } else {
-        include '../php_action/update-sindico.php';
-        // Atualiza dados para exibir no formulário sem precisar recarregar
-        $sindico = array_merge($sindico, $_POST);
+        include '../php_action/update-morador.php';
+        // Atualiza dados para o formulário
+        $morador = array_merge($morador, $_POST);
     }
 }
 ?>
 <div class="container mt-4">
-    <h2>Editar Síndico</h2>
+    <h2>Editar Morador</h2>
     <?php if ($erro): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($erro) ?></div>
     <?php elseif ($sucesso): ?>
@@ -90,42 +90,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" action="">
         <div class="mb-3 text-start">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" required value="<?= htmlspecialchars($sindico['nome']) ?>">
+            <input type="text" class="form-control" id="nome" name="nome" required value="<?= htmlspecialchars($morador['nome']) ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="email" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="email" name="email" required value="<?= htmlspecialchars($sindico['email']) ?>">
+            <input type="email" class="form-control" id="email" name="email" required value="<?= htmlspecialchars($morador['email']) ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="telefone" class="form-label">Telefone</label>
-            <input type="text" class="form-control" id="telefone" name="telefone" value="<?= htmlspecialchars($sindico['telefone']) ?>">
+            <input type="text" class="form-control" id="telefone" name="telefone" value="<?= htmlspecialchars($morador['telefone']) ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="cpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" required maxlength="14" value="<?= htmlspecialchars($sindico['cpf']) ?>">
+            <input type="text" class="form-control" id="cpf" name="cpf" required maxlength="14" value="<?= htmlspecialchars($morador['cpf']) ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="estado" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="estado" name="estado" maxlength="50" value="<?= htmlspecialchars($sindico['estado'] ?? '') ?>">
+            <input type="text" class="form-control" id="estado" name="estado" maxlength="50" value="<?= htmlspecialchars($morador['estado'] ?? '') ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="cidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="cidade" name="cidade" maxlength="100" value="<?= htmlspecialchars($sindico['cidade'] ?? '') ?>">
+            <input type="text" class="form-control" id="cidade" name="cidade" maxlength="100" value="<?= htmlspecialchars($morador['cidade'] ?? '') ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="bloco" class="form-label">Bloco</label>
-            <input type="text" class="form-control" id="bloco" name="bloco" maxlength="50" value="<?= htmlspecialchars($sindico['bloco'] ?? '') ?>">
+            <input type="text" class="form-control" id="bloco" name="bloco" maxlength="50" value="<?= htmlspecialchars($morador['bloco'] ?? '') ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="casa" class="form-label">Casa</label>
-            <input type="text" class="form-control" id="casa" name="casa" maxlength="50" value="<?= htmlspecialchars($sindico['casa'] ?? '') ?>">
+            <input type="text" class="form-control" id="casa" name="casa" maxlength="50" value="<?= htmlspecialchars($morador['casa'] ?? '') ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="id_condominio" class="form-label">Condomínio</label>
             <select class="form-control" id="id_condominio" name="id_condominio" required>
                 <option value="">Selecione...</option>
                 <?php foreach ($condominios as $cond): ?>
-                    <option value="<?= $cond['id'] ?>" <?= ($sindico['id_condominio'] == $cond['id']) ? 'selected' : '' ?>>
+                    <option value="<?= $cond['id'] ?>" <?= ($morador['id_condominio'] == $cond['id']) ? 'selected' : '' ?>>
                         <?= htmlspecialchars($cond['nome']) ?>
                     </option>
                 <?php endforeach; ?>
@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="perfil" class="form-label">Perfil</label>
             <select class="form-control" id="perfil" name="perfil" required>
                 <?php foreach ($perfis as $key => $label): ?>
-                    <option value="<?= $key ?>" <?= ($sindico['perfil'] == $key) ? 'selected' : '' ?>><?= $label ?></option>
+                    <option value="<?= $key ?>" <?= ($morador['perfil'] == $key) ? 'selected' : '' ?>><?= $label ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -143,12 +143,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="status" class="form-label">Status</label>
             <select class="form-control" id="status" name="status" required>
                 <?php foreach ($statusList as $key => $label): ?>
-                    <option value="<?= $key ?>" <?= ($sindico['status'] == $key) ? 'selected' : '' ?>><?= $label ?></option>
+                    <option value="<?= $key ?>" <?= ($morador['status'] == $key) ? 'selected' : '' ?>><?= $label ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Salvar</button>
-        <a href="gerenciar-sindicos.php" class="btn btn-secondary ms-2">Cancelar</a>
+        <a href="gerenciar-moradores.php" class="btn btn-secondary ms-2">Cancelar</a>
     </form>
 </div>
 

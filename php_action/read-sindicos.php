@@ -43,12 +43,12 @@ if (mysqli_num_rows($result) === 0): ?>
                     ?>
                 </td>
                 <td>
-                    <a href="editar-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-primary btn-sm me-2">Editar</a>
+                    <a href="editar-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-primary btn-sm me-2"> <i class="fas fa-edit"></i> Editar</a>
                     <?php if ($s['status'] == 'pendente'): ?>
-                        <a href="../php_action/reject-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm me-2">Rejeitar</a>
-                        <a href="../php_action/approve-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-success btn-sm">Aprovar</a>
+                        <a href="../php_action/reject-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm me-2"> <i class="fa fa-close"></i> Rejeitar</a>
+                        <a href="../php_action/approve-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-success btn-sm"> <i class="fas fa-check-square"></i> Aprovar</a>
                     <?php else: ?>
-                        <a href="../php_action/delete-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm">Apagar</a>
+                        <a href="../php_action/delete-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i> Apagar</a>
                     <?php endif; ?>
                 </td>
             </tr>
