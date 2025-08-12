@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'auth.php';
 include '../config/conexao.php';
 $currentPage = 'sindicos';
@@ -7,12 +8,27 @@ include '../includes/header.php';
 
 $erro = '';
 $sucesso = '';
+
+// Mensagem vinda do redirecionamento
+if (isset($_SESSION['sucesso'])) {
+    $sucesso = $_SESSION['sucesso'];
+    unset($_SESSION['sucesso']);
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+if ($id <= 0) {
+    echo "<div class='container mt-4'><div class='alert alert-danger'>ID inválido.</div></div>";
+    include '../includes/footer.php';
+    exit;
+}
 
 // Busca dados do síndico
-$sql = "SELECT * FROM usuarios WHERE codigo = $id LIMIT 1";
-$result = mysqli_query($conn, $sql);
-$sindico = mysqli_fetch_assoc($result);
+$stmt = $conn->prepare("SELECT * FROM usuarios WHERE codigo = ? LIMIT 1");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$sindico = $result->fetch_assoc();
+$stmt->close();
 
 if (!$sindico) {
     echo "<div class='container mt-4'><div class='alert alert-danger'>Síndico não encontrado.</div></div>";
@@ -20,7 +36,7 @@ if (!$sindico) {
     exit;
 }
 
-// Busca condomínios para o select
+// Busca condomínios
 $condominios = [];
 $resConds = mysqli_query($conn, "SELECT id, nome FROM condominios ORDER BY nome ASC");
 while ($row = mysqli_fetch_assoc($resConds)) {
@@ -46,6 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $telefone = trim($_POST['telefone']);
     $cpf = trim($_POST['cpf']);
+    $estado = trim($_POST['estado']);
+    $cidade = trim($_POST['cidade']);
+    $bloco = trim($_POST['bloco']);
+    $casa = trim($_POST['casa']);
     $id_condominio = intval($_POST['id_condominio']);
     $perfil = intval($_POST['perfil']);
     $status = $_POST['status'];
@@ -56,20 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erro = "E-mail inválido.";
     } else {
         include '../php_action/update-sindico.php';
-        // Atualiza dados para exibir no formulário após edição
-        $sindico = array_merge($sindico, [
-            'nome' => $nome,
-            'email' => $email,
-            'telefone' => $telefone,
-            'cpf' => $cpf,
-            'id_condominio' => $id_condominio,
-            'perfil' => $perfil,
-            'status' => $status
-        ]);
+        // Atualiza dados para exibir no formulário sem precisar recarregar
+        $sindico = array_merge($sindico, $_POST);
     }
 }
 ?>
-
 <div class="container mt-4">
     <h2>Editar Síndico</h2>
     <?php if ($erro): ?>
@@ -96,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="mb-3 text-start">
             <label for="estado" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="estado" name="estado" maxlength="2" value="<?= htmlspecialchars($sindico['estado'] ?? '') ?>">
+            <input type="text" class="form-control" id="estado" name="estado" maxlength="50" value="<?= htmlspecialchars($sindico['estado'] ?? '') ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="cidade" class="form-label">Cidade</label>
@@ -104,11 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="mb-3 text-start">
             <label for="bloco" class="form-label">Bloco</label>
-            <input type="text" class="form-control" id="bloco" name="bloco" maxlength="20" value="<?= htmlspecialchars($sindico['bloco'] ?? '') ?>">
+            <input type="text" class="form-control" id="bloco" name="bloco" maxlength="50" value="<?= htmlspecialchars($sindico['bloco'] ?? '') ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="casa" class="form-label">Casa</label>
-            <input type="text" class="form-control" id="casa" name="casa" maxlength="20" value="<?= htmlspecialchars($sindico['casa'] ?? '') ?>">
+            <input type="text" class="form-control" id="casa" name="casa" maxlength="50" value="<?= htmlspecialchars($sindico['casa'] ?? '') ?>">
         </div>
         <div class="mb-3 text-start">
             <label for="id_condominio" class="form-label">Condomínio</label>
@@ -141,27 +152,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="gerenciar-sindicos.php" class="btn btn-secondary ms-2">Cancelar</a>
     </form>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-<!-- Select2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 <script>
 $(document).ready(function() {
-    // Aplica Select2 nos selects usando os IDs reais
-    $('#id_condominio').select2({
-        dropdownParent: $('#id_condominio').closest('form')
-    });
-    $('#perfil').select2({
-        dropdownParent: $('#perfil').closest('form')
-    });
-    $('#status').select2({
-        dropdownParent: $('#status').closest('form')
+    $('#id_condominio, #perfil, #status').select2({
+        dropdownParent: $('form')
     });
 });
 </script>
-
 <?php include '../includes/footer.php'; ?>

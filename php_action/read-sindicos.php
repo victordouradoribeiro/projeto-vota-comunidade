@@ -45,10 +45,10 @@ if (mysqli_num_rows($result) === 0): ?>
                 <td>
                     <a href="editar-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-primary btn-sm me-2">Editar</a>
                     <?php if ($s['status'] == 'pendente'): ?>
-                        <a href="../php_action/rejeitar_sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm me-2">Rejeitar</a>
-                        <a href="../php_action/aprovar_sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-success btn-sm">Aprovar</a>
+                        <a href="../php_action/reject-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm me-2">Rejeitar</a>
+                        <a href="../php_action/approve-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-success btn-sm">Aprovar</a>
                     <?php else: ?>
-                        <a href="../php_action/remover_sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm">Remover</a>
+                        <a href="../php_action/delete-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm">Apagar</a>
                     <?php endif; ?>
                 </td>
             </tr>
