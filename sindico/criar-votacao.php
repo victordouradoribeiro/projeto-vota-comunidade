@@ -104,7 +104,7 @@ include '../includes/navbar-sindico.php'; // Crie um navbar-sindico.php para o m
         </div>
 
         <div class="d-flex justify-content-between">
-            <a href="dashboard.php" class="btn btn-outline-secondary"><i class="fas fa-times"></i> Cancelar</a>
+            <a href="gerenciar-votacoes.php" class="btn btn-outline-secondary"><i class="fas fa-times"></i> Cancelar</a>
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Criar Votação</button>
         </div>
     </form>

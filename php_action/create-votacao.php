@@ -101,5 +101,5 @@ foreach ($opcoes as $opcao) {
 mysqli_stmt_close($stmt);
 
 $_SESSION['success'] = "Votação criada com sucesso!";
-header("Location: ../sindico/dashboard.php");
+header("Location: ../sindico/gerenciar-votacoes.php");
 exit;

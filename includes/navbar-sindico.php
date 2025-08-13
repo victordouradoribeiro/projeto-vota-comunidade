@@ -24,16 +24,9 @@
                 </li>
                 <li class="nav-item ms-3">
                     <a class="nav-link <?php echo ($currentPage === 'votacoes') ? 'active text-white' : 'text-white'; ?>" 
-                       href="/sindico/votacoes.php"
+                       href="/sindico/gerenciar-votacoes.php"
                        <?php if ($currentPage === 'votacoes') echo 'aria-current="page"'; ?>>
                         Votações
-                    </a>
-                </li>
-                <li class="nav-item ms-3">
-                    <a class="nav-link <?php echo ($currentPage === 'moradores') ? 'active text-white' : 'text-white'; ?>" 
-                       href="/sindico/moradores.php"
-                       <?php if ($currentPage === 'moradores') echo 'aria-current="page"'; ?>>
-                        Moradores
                     </a>
                 </li>
                 <li class="nav-item ms-3">
@@ -41,6 +34,13 @@
                        href="/sindico/resultados.php"
                        <?php if ($currentPage === 'resultados') echo 'aria-current="page"'; ?>>
                         Resultados
+                    </a>
+                </li>
+                <li class="nav-item ms-3">
+                    <a class="nav-link <?php echo ($currentPage === 'moradores') ? 'active text-white' : 'text-white'; ?>" 
+                       href="/sindico/minha-conta.php"
+                       <?php if ($currentPage === 'minha-conta') echo 'aria-current="page"'; ?>>
+                        Minha Conta
                     </a>
                 </li>
                 <li class="nav-item ms-3">
