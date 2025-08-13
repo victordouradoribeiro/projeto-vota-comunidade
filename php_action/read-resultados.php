@@ -20,13 +20,13 @@ while ($row = mysqli_fetch_assoc($resCondominios)) {
 if ($condominio_id > 0) {
     // Buscar pautas relacionadas ao condomínio pelo voto dos usuários
     $sqlPautas = "
-        SELECT DISTINCT p.*
+        SELECT p.*
         FROM pautas p
-        JOIN votos v ON v.id_pauta = p.id
-        JOIN usuarios u ON u.codigo = v.id_usuario
-        WHERE u.id_condominio = $condominio_id
+        JOIN usuarios s ON s.codigo = p.id_sindico
+        WHERE s.id_condominio = $condominio_id
         ORDER BY p.data_fim DESC
-    ";
+";
+
 } else {
     // Se não passou condomínio, pegar todas as pautas (limitando a 10)
     $sqlPautas = "SELECT * FROM pautas ORDER BY data_fim DESC LIMIT 10";

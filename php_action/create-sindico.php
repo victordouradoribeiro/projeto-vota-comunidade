@@ -6,7 +6,7 @@ if (!isset($conn)) {
     include '../config/conexao.php';
 }
 
-$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+$senhaHash = md5($senha);
 
 $stmt = $conn->prepare("
     INSERT INTO usuarios (usuario, nome, email, telefone, cpf, estado, cidade, bloco, casa, senha, id_condominio, perfil, status)
