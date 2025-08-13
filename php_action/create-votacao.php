@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../config/conexao.php';
 
 if (!isset($_SESSION['id_usuario']) || $_SESSION['perfil'] != 2) {
@@ -102,4 +103,3 @@ mysqli_stmt_close($stmt);
 
 $_SESSION['success'] = "Votação criada com sucesso!";
 header("Location: ../sindico/gerenciar-votacoes.php");
-exit;

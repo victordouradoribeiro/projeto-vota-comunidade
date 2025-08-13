@@ -1,16 +1,27 @@
 <?php
+session_start();
 include 'auth.php'; // proteger acesso
 include '../config/conexao.php';
 
-// Buscar condomínios para popular select
-$result = mysqli_query($conn, "SELECT id, nome FROM condominios ORDER BY nome");
-$condominios = mysqli_fetch_all($result, MYSQLI_ASSOC);
+// Pega o ID do síndico logado
+$id_sindico = $_SESSION['id_usuario'];
+
+// Buscar o ID e nome do condomínio do síndico
+$stmt_cond = $conn->prepare("SELECT c.id, c.nome FROM condominios c JOIN usuarios u ON u.id_condominio = c.id WHERE u.codigo = ?");
+$stmt_cond->bind_param("i", $id_sindico);
+$stmt_cond->execute();
+$result_cond = $stmt_cond->get_result();
+$condominio = $result_cond->fetch_assoc();
+$stmt_cond->close();
+
+if (!$condominio) {
+    die("Erro: Condomínio não encontrado para este síndico.");
+}
 
 // Variáveis para feedback e dados pré-preenchidos (útil após erro)
 $errors = [];
 $old = [
     'titulo' => '',
-    'id_condominio' => '',
     'descricao' => '',
     'data_inicio' => '',
     'data_fim' => '',
@@ -27,11 +38,11 @@ if (isset($_SESSION['errors'])) {
 }
 
 include '../includes/header.php';
-include '../includes/navbar-sindico.php'; // Crie um navbar-sindico.php para o menu do síndico
+include '../includes/navbar-sindico.php';
 ?>
 
 <div class="container mt-4">
-    <h1 class="mb-4">Criar Nova Votação</h1>
+    <h1 class="mb-4">Criar Nova Votação para o Condomínio: <?= htmlspecialchars($condominio['nome']) ?></h1>
 
     <?php if ($errors): ?>
         <div class="alert alert-danger">
@@ -44,23 +55,12 @@ include '../includes/navbar-sindico.php'; // Crie um navbar-sindico.php para o m
     <?php endif; ?>
 
     <form action="../php_action/create-votacao.php" method="POST">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="titulo" class="form-label">Título da Votação *</label>
-                <input type="text" name="titulo" id="titulo" class="form-control" maxlength="150" required
-                    value="<?= htmlspecialchars($old['titulo']) ?>">
-            </div>
-            <div class="col-md-6">
-                <label for="id_condominio" class="form-label">Condomínio *</label>
-                <select name="id_condominio" id="id_condominio" class="form-select" required>
-                    <option value="">Selecione um condomínio</option>
-                    <?php foreach ($condominios as $cond): ?>
-                        <option value="<?= $cond['id'] ?>" <?= ($old['id_condominio'] == $cond['id']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($cond['nome']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+        <input type="hidden" name="id_condominio" value="<?= htmlspecialchars($condominio['id']) ?>">
+
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título da Votação *</label>
+            <input type="text" name="titulo" id="titulo" class="form-control" maxlength="150" required
+                value="<?= htmlspecialchars($old['titulo']) ?>">
         </div>
 
         <div class="mb-3">
@@ -104,7 +104,7 @@ include '../includes/navbar-sindico.php'; // Crie um navbar-sindico.php para o m
         </div>
 
         <div class="d-flex justify-content-between">
-            <a href="gerenciar-votacoes.php" class="btn btn-outline-secondary"><i class="fas fa-times"></i> Cancelar</a>
+            <a href="./gerenciar-votacoes.php" class="btn btn-outline-secondary"><i class="fas fa-times"></i> Cancelar</a>
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Criar Votação</button>
         </div>
     </form>
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Remover opções
+    // Remover opções existentes
     document.querySelectorAll('.remove-opcao').forEach(btn => {
         btn.addEventListener('click', function() {
             btn.parentElement.remove();

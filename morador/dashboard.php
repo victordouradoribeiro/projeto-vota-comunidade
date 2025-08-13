@@ -34,7 +34,7 @@ include '../includes/navbar-morador.php';
                     <?php if ((int)$p['ja_votou'] === 1): ?>
                         <a href="detalhes-votacao.php?id=<?= (int)$p['id_pauta'] ?>" class="btn btn-secondary">Ver detalhes</a>
                     <?php else: ?>
-                        <a href="votar.php?id=<?= (int)$p['id_pauta'] ?>" class="btn btn-primary btn-votar">Votar</a>
+                        <a href="votacoes.php" class="btn btn-primary btn-votar">Votar</a>
                     <?php endif; ?>
                 </div>
             </div>
