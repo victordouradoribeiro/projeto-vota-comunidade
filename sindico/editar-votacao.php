@@ -1,4 +1,5 @@
 <?php
+include 'auth.php'; // já faz a verificação de login/perfil
 include '../config/conexao.php';
 
 // Verifica se recebeu o ID
@@ -25,32 +26,11 @@ if (!$votacao) {
 $sqlOpcoes = "SELECT * FROM opcoes_voto WHERE id_pauta = $id_pauta";
 $resultOpcoes = mysqli_query($conn, $sqlOpcoes);
 $opcoes = mysqli_fetch_all($resultOpcoes, MYSQLI_ASSOC);
+include '../includes/navbar-sindico.php';
+include '../includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<title>Editar Votação</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/a2e0e9e65c.js" crossorigin="anonymous"></script>
-<style>
-.content-header { border-bottom: 1px solid #e9ecef; padding-bottom: 1rem; margin-bottom: 2rem; }
-.remove-opcao { border-top-left-radius: 0; border-bottom-left-radius: 0; }
-</style>
-</head>
-<body class="container mt-4">
 
-<div class="content-header">
-    <h1 class="mb-4">Editar Votação</h1>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="gerenciar-votacoes.php">Votações</a></li>
-            <li class="breadcrumb-item active">Editar: <?= htmlspecialchars($votacao['titulo']) ?></li>
-        </ol>
-    </nav>
-</div>
-
-<div class="row justify-content-center">
+<div class="row justify-content-center mt-5">
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-warning text-dark">
@@ -163,5 +143,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-</body>
-</html>
+
+<?php include '../includes/footer.php'; ?>
