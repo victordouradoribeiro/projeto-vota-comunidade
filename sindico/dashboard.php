@@ -21,7 +21,7 @@ $votacoesAtivas = [];
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         // Buscar resultados (alternativas) e calcular % para cada votação
-        $idPauta = $row['id_pauta'];
+        $idPauta = $row['id'];
         $totalVotos = $row['total_votos_geral'] ?: 0;
 
         $sqlResultados = "
@@ -132,10 +132,10 @@ include '../includes/navbar-sindico.php'; // Navbar do síndico
                     <?php endforeach; ?>
 
                     <div class="d-flex justify-content-center mt-4">
-                        <a href="/sindico/editar-votacao.php?id=<?= $votacao['id_pauta'] ?>" class="btn btn-edit me-3">
+                        <a href="/sindico/editar-votacao.php?id=<?= $votacao['id'] ?>" class="btn btn-edit me-3">
                             <i class="fas fa-edit"></i> Editar votação
                         </a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#encerrarModal<?= $votacao['id_pauta'] ?>">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#encerrarModal<?= $votacao['id'] ?>">
                             <i class="fas fa-stop"></i> Encerrar votação
                         </button>
                     </div>
@@ -143,11 +143,11 @@ include '../includes/navbar-sindico.php'; // Navbar do síndico
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="encerrarModal<?= $votacao['id_pauta'] ?>" tabindex="-1" aria-labelledby="encerrarModalLabel<?= $votacao['id_pauta'] ?>" aria-hidden="true">
+            <div class="modal fade" id="encerrarModal<?= $votacao['id'] ?>" tabindex="-1" aria-labelledby="encerrarModalLabel<?= $votacao['id'] ?>" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="encerrarModalLabel<?= $votacao['id_pauta'] ?>">Confirmar Encerramento</h5>
+                            <h5 class="modal-title" id="encerrarModalLabel<?= $votacao['id'] ?>">Confirmar Encerramento</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                         </div>
                         <div class="modal-body">
@@ -160,7 +160,7 @@ include '../includes/navbar-sindico.php'; // Navbar do síndico
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <form action="/sindico/encerrar-votacao.php" method="POST" class="d-inline">
-                                <input type="hidden" name="id_pauta" value="<?= $votacao['id_pauta'] ?>">
+                                <input type="hidden" name="id" value="<?= $votacao['id'] ?>">
                                 <button type="submit" class="btn btn-danger">Encerrar Votação</button>
                             </form>
                         </div>

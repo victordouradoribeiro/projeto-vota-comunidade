@@ -43,7 +43,7 @@ include '../includes/navbar-sindico.php'; // Crie um navbar-sindico.php para o m
         </div>
     <?php endif; ?>
 
-    <form action="../php_action/create-poll.php" method="POST">
+    <form action="../php_action/create-votacao.php" method="POST">
         <div class="row mb-3">
             <div class="col-md-6">
                 <label for="titulo" class="form-label">Título da Votação *</label>
