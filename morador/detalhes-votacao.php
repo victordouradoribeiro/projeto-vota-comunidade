@@ -45,7 +45,7 @@ while ($row = mysqli_fetch_assoc($resResultados)) {
     $resultados[] = $row;
 }
 
-include '../includes/navbar-sindico.php';
+include '../includes/navbar-morador.php';
 include '../includes/header.php';
 ?>
 

@@ -25,7 +25,7 @@ include '../includes/header.php';
         <div class="input-group">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
             <input type="text" class="form-control" name="pesquisa" placeholder="Pesquisar por nome, endereço ou síndico..." value="<?= htmlspecialchars($pesquisa) ?>">
-            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            <button class="btn btn-outline-primary" type="submit">Pesquisar</button>
             <?php if (!empty($pesquisa)): ?>
                 <a href="gerenciar-condominios.php" class="btn btn-outline-danger">Limpar</a>
             <?php endif; ?>
