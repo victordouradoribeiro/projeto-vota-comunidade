@@ -57,7 +57,7 @@ include '../includes/navbar-sindico.php'; // Navbar do síndico
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="section-title mb-0">Votações em Aberto</h3>
-        <a href="/sindico/votacoes-create.php" class="btn-add">
+        <a href="/sindico/criar-votacao.php" class="btn-add">
             <i class="fas fa-plus"></i>
             Criar nova Votação
         </a>
@@ -85,7 +85,7 @@ include '../includes/navbar-sindico.php'; // Navbar do síndico
                 <i class="fas fa-vote-yea fa-3x text-muted mb-3"></i>
                 <h4 class="text-muted">Nenhuma votação ativa</h4>
                 <p class="text-muted">Você ainda não criou nenhuma votação ativa.</p>
-                <a href="/sindico/votacoes-create.php" class="btn btn-primary">
+                <a href="/sindico/criar-votacao.php" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Criar Primeira Votação
                 </a>
             </div>
@@ -132,7 +132,7 @@ include '../includes/navbar-sindico.php'; // Navbar do síndico
                     <?php endforeach; ?>
 
                     <div class="d-flex justify-content-center mt-4">
-                        <a href="/sindico/votacoes-edit.php?id=<?= $votacao['id_pauta'] ?>" class="btn btn-edit me-3">
+                        <a href="/sindico/editar-votacao.php?id=<?= $votacao['id_pauta'] ?>" class="btn btn-edit me-3">
                             <i class="fas fa-edit"></i> Editar votação
                         </a>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#encerrarModal<?= $votacao['id_pauta'] ?>">
@@ -159,7 +159,7 @@ include '../includes/navbar-sindico.php'; // Navbar do síndico
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <form action="/sindico/votacoes-encerrar.php" method="POST" class="d-inline">
+                            <form action="/sindico/encerrar-votacao.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id_pauta" value="<?= $votacao['id_pauta'] ?>">
                                 <button type="submit" class="btn btn-danger">Encerrar Votação</button>
                             </form>
