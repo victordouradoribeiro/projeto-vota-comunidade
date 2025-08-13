@@ -2,13 +2,13 @@
 include 'auth.php'; // Inclui a verificação de autenticação
 include '../config/conexao.php'; // Inclui a conexão com o banco de dados
 
-// // Estatísticas
+// Estatísticas
 $totalUsuarios = mysqli_fetch_row(mysqli_query($conn, "SELECT COUNT(*) FROM usuarios"))[0];
-// $votacoesAtivas = mysqli_fetch_row(mysqli_query($conn, "SELECT COUNT(*) FROM pautas WHERE status='ativa'"))[0];
+$votacoesAtivas = mysqli_fetch_row(mysqli_query($conn, "SELECT COUNT(*) FROM pautas WHERE status='ativa'"))[0];
 $totalCondominios = mysqli_fetch_row(mysqli_query($conn, "SELECT COUNT(*) FROM condominios"))[0];
 
-// // Ações recentes (exemplo simples)
-// $atividadesRecentes = mysqli_query($conn, "SELECT descricao, created_at FROM atividades ORDER BY created_at DESC LIMIT 10");
+// Ações recentes (exemplo simples)
+$atividadesRecentes = mysqli_query($conn, "SELECT descricao, created_at FROM atividades ORDER BY created_at DESC LIMIT 10");
 include '../includes/navbar-admin.php'; // Inclui a barra de navegação
 include '../includes/header.php'; // Inclui o cabeçalho HTML
 ?>
