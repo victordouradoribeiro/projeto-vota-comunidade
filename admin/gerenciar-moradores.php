@@ -50,6 +50,7 @@ $offset = ($page - 1) * $limit;
                             <th scope="col">E-MAIL</th>
                             <th scope="col">CPF</th>
                             <th scope="col">CONDOMÍNIO</th>
+                            <th scope="col">STATUS</th> 
                             <th scope="col">AÇÕES</th>
                         </tr>
                     </thead>

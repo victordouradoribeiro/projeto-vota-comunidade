@@ -29,8 +29,8 @@ if (mysqli_num_rows($result) === 0): ?>
     <tbody>
         <?php while ($s = mysqli_fetch_assoc($result)): ?>
             <tr>
-                <td><?= htmlspecialchars($s['nome']) ?></td>
-                <td><?= htmlspecialchars($s['condominio'] ?? '-') ?></td>
+                <td><strong><?= htmlspecialchars($s['nome']) ?></strong></td>
+                <td><span class="badge bg-info"><?= htmlspecialchars($s['condominio'] ?? '-') ?></span></td>
                 <td>
                     <?php
                         if ($s['status'] == 'pendente') {
@@ -48,7 +48,25 @@ if (mysqli_num_rows($result) === 0): ?>
                         <a href="../php_action/reject-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm me-2"> <i class="fa fa-close"></i> Rejeitar</a>
                         <a href="../php_action/approve-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-success btn-sm"> <i class="fas fa-check-square"></i> Aprovar</a>
                     <?php else: ?>
-                        <a href="../php_action/delete-sindico.php?id=<?= $s['codigo'] ?>" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i> Apagar</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalRemover<?= $s['codigo'] ?>">
+                            <i class="fas fa-trash"></i> Apagar
+                        </button>
+                        
+                        <div class="modal fade" id="modalRemover<?= $s['codigo'] ?>" tabindex="-1" aria-labelledby="modalLabel<?= $s['codigo'] ?>" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-body py-4">
+                                <h5 class="mb-3 fw-bold text-danger" style="font-size:1.2rem;">Tem certeza que deseja apagar este síndico?</h5>
+                                <p class="mb-4">Esta ação não pode ser desfeita.</p>
+                                <form method="POST" action="../php_action/delete-sindico.php">
+                                    <input type="hidden" name="id" value="<?= $s['codigo'] ?>">
+                                    <button type="submit" class="btn btn-danger me-2">Apagar</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     <?php endif; ?>
                 </td>
             </tr>

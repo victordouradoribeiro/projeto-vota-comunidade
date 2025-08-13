@@ -26,8 +26,7 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) === 0): ?>
     <tbody>
         <tr>
-            <td colspan="5" class="text-center text-muted">Nenhum morador encontrado.</td>
-        </tr>
+            <td colspan="6" class="text-center text-muted">Nenhum morador encontrado.</td> </tr>
     </tbody>
 <?php else: ?>
     <tbody>
@@ -44,6 +43,16 @@ if (mysqli_num_rows($result) === 0): ?>
                     <?php endif; ?>
                 </td>
                 <td>
+                    <?php
+                        if ($m['status'] == 'pendente') {
+                            echo '<span class="badge bg-warning text-dark">Pendente</span>';
+                        } elseif ($m['status'] == 'rejeitado') {
+                            echo '<span class="badge bg-danger">Rejeitado</span>';
+                        } else {
+                            echo '<span class="badge bg-success">Ativo</span>';
+                        }
+                    ?>
+                </td> <td>
                     <a href="editar-morador.php?id=<?= $m['codigo'] ?>" class="btn btn-outline-primary btn-sm me-2">
                         <i class="fas fa-edit"></i> Editar
                     </a>
@@ -52,12 +61,10 @@ if (mysqli_num_rows($result) === 0): ?>
                         <a href="../php_action/reject-morador.php?id=<?= $m['codigo'] ?>" class="btn btn-outline-danger btn-sm me-2"> <i class="fa fa-close"></i> Rejeitar</a>
                         <a href="../php_action/approve-morador.php?id=<?= $m['codigo'] ?>" class="btn btn-outline-success btn-sm"> <i class="fas fa-check-square"></i> Aprovar</a>
                     <?php else: ?>
-                        <!-- botão que abre modal de confirmação -->
                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalRemover<?= $m['codigo'] ?>">
                             <i class="fas fa-trash"></i> Apagar
                         </button>
 
-                        <!-- Modal de confirmação -->
                         <div class="modal fade" id="modalRemover<?= $m['codigo'] ?>" tabindex="-1" aria-labelledby="modalLabel<?= $m['codigo'] ?>" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -78,4 +85,4 @@ if (mysqli_num_rows($result) === 0): ?>
             </tr>
         <?php endwhile; ?>
     </tbody>
-<?php endif; ?>
+<?php endif;

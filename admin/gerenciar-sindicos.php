@@ -69,8 +69,7 @@ $offset = ($page - 1) * $limit;
     $totalPages = ceil($totalRows / $limit);
     ?>
     <nav aria-label="Paginação" class="bg-white">
-        <ul class="pagination justify-content-center mt-4">
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <ul class="pagination pagination-sm justify-content-center mt-4"> <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
                     <a class="page-link" href="?pesquisa=<?= urlencode($pesquisa) ?>&page=<?= $i ?>"><?= $i ?></a>
                 </li>
