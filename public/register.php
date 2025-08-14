@@ -12,10 +12,16 @@ while ($row = mysqli_fetch_assoc($resConds)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $usuario = $email; // Usar email como usuário
     $nome = trim($_POST['nome']);
     $email = trim($_POST['email']);
     $telefone = trim($_POST['telefone']);
     $cpf = trim($_POST['cpf']);
+    $estado = 'Não informado'; // Estado não é obrigatório
+    $cidade = 'Não informado'; // Cidade não é obrigatório
+    $bloco = 'Não informado'; // Bloco não é obrigatório
+    $casa = 'Não informado'; // Casa não é obrigatório
+    $perfil = 3; // 3 para morador
     $senha = $_POST['senha'];
     $senha_confirmation = $_POST['senha_confirmation'];
     $id_condominio = intval($_POST['id_condominio']);
@@ -144,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="email" class="form-control" id="email" name="email" placeholder="seuemail@exemplo.com" required value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
             </div>
             <div class="form-group mb-3 text-start">
-                <label for="telefone" class="form-label">Telefone (opcional)</label>
+                <label for="telefone" class="form-label">Telefone</label>
                 <input type="text" class="form-control" id="telefone" name="telefone" placeholder="(11) 99999-9999" value="<?= isset($_POST['telefone']) ? htmlspecialchars($_POST['telefone']) : '' ?>">
             </div>
             <div class="form-group mb-3 text-start">

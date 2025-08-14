@@ -63,33 +63,40 @@ CREATE TABLE votos (
     UNIQUE (id_usuario, id_pauta)
 );
 
+-- Tabela de atividades (logs)
+-- Armazena atividades dos usuários, como criação de contas e alterações de status
 CREATE TABLE atividades (
-id INT AUTO_INCREMENT PRIMARY KEY,
-id_usuario INT,
-descricao VARCHAR(255) NOT NULL,
-created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (id_usuario) REFERENCES usuarios(codigo)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    descricao VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(codigo)
 );
 
+-- Triggers para registrar atividades de usuários
 DELIMITER $$
 
 CREATE TRIGGER tg_usuarios_insert
 AFTER INSERT ON usuarios
 FOR EACH ROW
 BEGIN
-DECLARE tipo_perfil VARCHAR(20);
-SET tipo_perfil = CASE NEW.perfil
-WHEN 1 THEN 'Admin'
-WHEN 2 THEN 'Síndico'
-WHEN 3 THEN 'Morador'
-ELSE 'Usuário'
-END;
+    DECLARE tipo_perfil VARCHAR(20);
+
+
+    SET tipo_perfil = CASE NEW.perfil
+        WHEN 1 THEN 'Admin'
+        WHEN 2 THEN 'Síndico'
+        WHEN 3 THEN 'Morador'
+        ELSE 'Usuário'
+    END;
+
 INSERT INTO atividades (descricao)
 VALUES (CONCAT('Novo ', tipo_perfil, ' "', NEW.nome, '" criado.'));
 END$$
 
 DELIMITER ;
 
+-- Trigger para registrar alterações de status de usuários
 DELIMITER $$
 
 CREATE TRIGGER tg_usuarios_update
@@ -122,9 +129,5 @@ INSERT INTO condominios (nome, endereco, telefone, cep) VALUES
 ('Condomínio Sol Nascente', 'Avenida Primária, 456', '(47) 2528-8381', '89280-331');
 
 -- Em seguida, inserir usuários, pois pautas, opções de voto e votos farão referência a eles.
--- As senhas são armazenadas como MD5 para exemplo.
--- admin terá codigo=1
--- sindico1 terá codigo=2
--- morador1 terá codigo=3
 INSERT INTO usuarios (usuario, senha, status, perfil, nome, email, telefone, cpf, id_condominio, estado, cidade, bloco, casa) VALUES
 ('admin', MD5('admin123'), 'ativo', 1, 'Luiza Raquel Santos', 'admin@votacomunidade.com', '(98)98795-4552', '323.689.962-06' , NULL, NULL, NULL, NULL, NULL);
