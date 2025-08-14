@@ -126,7 +126,7 @@ DELIMITER ;
 -- Inserir condomínios primeiro, pois usuários fazem referência a eles.
 INSERT INTO condominios (nome, endereco, telefone, cep) VALUES
 ('Vila da Névoa', 'Jardim das Flores, 175', '(98) 2558-8033', '65058-351'),
-('Condomínio Sol Nascente', 'Avenida Primária, 456', '(47) 2528-8381', '89280-331');
+('Condomínio Sol Nasccente', 'Avenida Primária, 456', '(47) 2528-8381', '89280-331');
 
 -- Em seguida, inserir usuários, pois pautas, opções de voto e votos farão referência a eles.
 INSERT INTO usuarios (usuario, senha, status, perfil, nome, email, telefone, cpf, id_condominio, estado, cidade, bloco, casa) VALUES

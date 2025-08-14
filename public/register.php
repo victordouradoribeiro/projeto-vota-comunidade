@@ -12,7 +12,7 @@ while ($row = mysqli_fetch_assoc($resConds)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuario = $email; // Usar email como usuário
+    $usuario = trim($_POST['email']); // Usar email como usuário
     $nome = trim($_POST['nome']);
     $email = trim($_POST['email']);
     $telefone = trim($_POST['telefone']);

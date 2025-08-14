@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erro = "E-mail inválido!";
     } else {
-        include '../php_action/create-morador.php';
+        include '../php_action/create-morador-admin.php';
     }
 }
 ?>
